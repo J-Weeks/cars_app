@@ -1,0 +1,64 @@
+#how to rails
+
+1. Generate a new rails app by putting the following into the terminal: "rails new cars_app --database=postgresql"
+*** plural is important
+enter directory
+
+2. start the rails server by entering the following into the terminal: “rails server"
+In the browser navigate to http://localhost:3000
+-check errors
+-close server
+
+3. Create a DB by entering the following into the terminal:
+“rake db:create"
+Restart the rails server and navigate to http://localhost:3000/cars
+-should get “No route  matches [GET] “/cars” error'
+
+4. open the config/routes.rb file and add the following:
+get ‘cars’, to: ‘cars#index
+-should get products controller error
+
+5. App/controllers create a cars_controller.rb file
+enter this in that file:
+
+class CroductsController < ApplicationController def index end end
+
+6.navigate back to http://localhost:300/cars
+-should get a template error
+-create a directory for the cars in the app/view directory
+-look for erb file in app/views/cars/index.html.erb
+     -if not there create one (can fill with gibberish text to check if working).
+
+7.Create a DB table by the following
+rails generate migration CreateCars make model year:decimal
+rake db:migrate
+
+8. Create rails model to access the date in the table
+-create a ruby file in app/models/cars.rb
+- put in that file the following
+class Car < ActiveRecord::Base
+end
+
+9. Create cars in the DB/seeds.rb file
+in the test case :
+
+1.upto(5) do |num|
+  Product.create(name: "Product_#{num}", price: num*3.99)
+end
+then see the database by doing the following:
+rake db:seed
+
+10. In the controller get all the cars from the database
+class CarsController < ApplicationController   def index     @cars = Cars.all   end end
+
+11. In apps/views/index.html.erb display your cars or whittles else you want to show
+In the test case this is:
+
+
+<h2>Products</h2>
+  <ul>
+   <% @products.each do |product| %>
+    <li><%= product.name %></li>
+    <% end %>
+</ul>
+
